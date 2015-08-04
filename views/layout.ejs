@@ -14,7 +14,11 @@
   <link rel='shortcut icon'
         type='image/x-icon'
         href='/favicon.ico' />
-
+  <%if(!session.user){%>
+    <span class="right"><a href="/login">Login</a></span>
+  <%}else{%>
+    <span class="right"> <%=session.user.username%> <a href="/logout">Logout</a></span>
+  <%}%>
 </head> 
 
 <body>
