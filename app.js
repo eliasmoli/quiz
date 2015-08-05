@@ -38,6 +38,21 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Auto logout 2 min
+app.use(function(req, res, next) {
+  if (req.session.user) {
+    // var currentTime = new Date().getTime(); o Date.now()
+    // var maxTimeSleep = 120000;
+    var currentTime = Date.now()
+    if (Date.now() - req.session.user.last_request > 120000) {
+      delete req.session.user;
+    } else {
+      // o = Date.now()
+      req.session.user.last_request = currentTime;
+    }
+  }
+  next();
+});
 
 app.use('/', routes);
 
